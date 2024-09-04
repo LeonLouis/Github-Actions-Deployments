@@ -126,3 +126,7 @@ jobs:
         password: ${{ secrets.FTP_LIVE_PASSWORD }}
         port: ${{ secrets.FTP_LIVE_PORT }}
 ```
+
+## Note
+
+All environment variables should use secret variables in Github. Using secret variables in GitHub Actions is a critical security measure that helps protect sensitive data, ensures consistent and secure workflow execution, and adheres to industry best practices. By leveraging secret variables, you can automate your CI/CD processes with confidence, knowing that your confidential information is securely managed.
