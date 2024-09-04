@@ -46,21 +46,28 @@ Automates the deployment of the website to a development or production environme
     - touch config
 
 3. Open file and paste following contents:
-    - `Host *.ssh.wpengine.net`
-      `IdentityFile ~/.ssh/wpengine_ed25519`
-      `IdentitiesOnly yes ` 
+
+```
+    Host *.ssh.wpengine.net
+    IdentityFile ~/.ssh/wpengine_ed25519
+    IdentitiesOnly yes 
+``` 
 
 4. Save file
 
 ### Use SSH Config to Connect with an Alias ( For Multiple SSH and be able to specify each )
 
 1. Update the config file with the following contents:
-- `Host ALIAS`
-  `User ENVIRONMENTNAME`
-  `Hostname ENVIRONMENTNAME.ssh.wpengine.net`
-  `PreferredAuthentications publickey`
-  `IdentityFile ~/.ssh/YOURKEYFILENAME_ed25519`
-  `IdentitiesOnly yes`
+
+```
+    Host ALIAS
+    User ENVIRONMENTNAME  
+    Hostname ENVIRONMENTNAME.ssh.wpengine.net 
+    PreferredAuthentications publickey    
+    IdentityFile ~/.ssh/YOURKEYFILENAME_ed25519   
+    IdentitiesOnly yes
+```
+
 - Update <b>ALIAS</b> to the alias name you wish to use.
 - Update <b>ENVIRONMENTNAME</b> to the unique WP Engine name of the environment. This is also the name of the User.
 - Update <b>~/.ssh/YOURKEYFILENAME_ed25519</b> to your private key file path. This should typically be in the `~/.ssh/` directory and end in `_ed25519`.
