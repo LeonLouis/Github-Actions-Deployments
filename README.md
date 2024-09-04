@@ -24,10 +24,69 @@ Automates the deployment of the website to a development or production environme
 
 ## SFTP WP Engine Deployment Action
 
+### How to generate New SSH Key
+
+1. Open a Terminal or Command Prompt window from your computer
+
+2. Use ssh-keygen to generate a new key as shown below:
+    - `ssh-keygen -t ed25519 -f ~/.ssh/wpengine_ed25519`
+ 
+3. Hit enter or return to leave it the passphrase blank.
+    - If you wish to set a password, you may. However the security benefit is debatable and it cannot be recovered if lost.
+
+### Create SSH Config 
+
+1. On your local machine, first navigate to your .ssh directory.
+    - MacOS – Open Terminal and type:
+        - `cd ~/.ssh/`
+    - Windows – Use Git Bash and navigate to:
+        - /c/Users/[youruser]/.ssh/
+
+2. To create the file run:
+    - touch config
+
+3. Open file and paste following contents:
+    - `Host *.ssh.wpengine.net`
+      `IdentityFile ~/.ssh/wpengine_ed25519`
+      `IdentitiesOnly yes ` 
+
+4. Save file
+
+### Use SSH Config to Connect with an Alias ( For Multiple SSH and be able to specify each )
+
+1. Update the config file with the following contents:
+- `Host ALIAS`
+  `User ENVIRONMENTNAME`
+  `Hostname ENVIRONMENTNAME.ssh.wpengine.net`
+  `PreferredAuthentications publickey`
+  `IdentityFile ~/.ssh/YOURKEYFILENAME_ed25519`
+  `IdentitiesOnly yes`
+- Update <b>ALIAS</b> to the alias name you wish to use.
+- Update <b>ENVIRONMENTNAME</b> to the unique WP Engine name of the environment. This is also the name of the User.
+- Update <b>~/.ssh/YOURKEYFILENAME_ed25519</b> to your private key file path. This should typically be in the `~/.ssh/` directory and end in `_ed25519`.
+
+### Add Public SSH to WP Engine SSH Keys
+
+1. Login to the User Portal
+2. Click your name, at the top right
+3. Select My Profile
+4. Click SSH Keys
+5. Select Create SSH Key
+6. Copy and add Public SSH from the generated SSH on your local ( file end in `.pub` )
+7. Click Add SSH key
+
+### Test SSH Key
+
+Once the SSH Key is added in the WP Engine test the SSH if it connects
+
+- type `ssh ALIAS`
+
+For more details check <a href="https://wpengine.com/support/ssh-keys-for-shell-access/" target="_blank">here</a>.
+
 ### Environment Variables
 
 ##### `WPE_SSHG_KEY_PRIVATE`
-- <b style="color:red;">( Required )</b> - Generated SSH Private Key. 
+- <b style="color:red;">( Required )</b> - Generated SSH Private Key ( Content that starts with `BEGIN OPENSSH PRIVATE KEY` ). 
 
 ##### `WPE_ENV`
 - <b style="color:red;">( Required )</b> - Name of site in WP Engine ( Production, Staging or Development ). 
